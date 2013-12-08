@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import ptc.workshop_comp.header;
 import ptc.workshop_comp.main_expense;
+import ptc.workshop_comp.main_profit;
 import ptc.workshop_comp.services;
 import ptc.workshop_comp.stock_management;
 
@@ -31,8 +32,9 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
      */
     header h;
     main_expense middle;
-    services middle2;
-    stock_management middle1;
+    main_profit middle1;
+    stock_management middle2;
+    services middle3;
     footer f;
   
     public workshop() throws ClassNotFoundException, SQLException {
@@ -41,8 +43,10 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
         pack();
         //h=new header();
         middle=new main_expense();
-        middle2=new services();
-        middle1=new stock_management();
+        middle1=new main_profit();
+        middle2=new stock_management();
+        middle3=new services();
+        
         f=new footer();
         //add(h,java.awt.BorderLayout.NORTH);
         add(f,java.awt.BorderLayout.SOUTH);
@@ -52,7 +56,8 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
         service_button.addActionListener(this);
         logout.addActionListener(this);
         modulebox.addActionListener(this);
-        
+        profit.addActionListener(this);
+    
     }
  
 
@@ -77,18 +82,35 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
         stock_button = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         modulebox = new javax.swing.JComboBox();
+        profit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("welcome to ptc workshop");
 
+        jPanel1.setBackground(new java.awt.Color(75, 109, 208));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 100));
 
-        expense_button.setText("expense");
+        expense_button.setText("Expense");
+        expense_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                expense_buttonActionPerformed(evt);
+            }
+        });
 
         service_button.setText("service");
+        service_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                service_buttonActionPerformed(evt);
+            }
+        });
 
-        stock_button.setText("stock management");
+        stock_button.setText("Stock Management");
+        stock_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stock_buttonActionPerformed(evt);
+            }
+        });
 
         logout.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rahil\\Documents\\NetBeansProjects\\JavaApplication1\\src\\logo\\exit.png")); // NOI18N
         logout.setActionCommand("logout");
@@ -101,6 +123,13 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
             }
         });
 
+        profit.setText("Profit");
+        profit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -108,11 +137,13 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(expense_button, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(profit, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(stock_button)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(service_button, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 459, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 349, Short.MAX_VALUE)
                 .addComponent(modulebox, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logout)
@@ -120,14 +151,15 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(logout, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                    .addComponent(service_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(profit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                    .addComponent(expense_button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(modulebox, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(stock_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(expense_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(modulebox))
+                    .addComponent(service_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -139,6 +171,48 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
     private void moduleboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moduleboxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_moduleboxActionPerformed
+
+    private void stock_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stock_buttonActionPerformed
+        // TODO add your handling code here:
+         remove(middle);
+        remove(middle1);
+        remove(middle3);
+        
+        add(middle2).setVisible(true);
+        validate();
+         repaint();
+    }//GEN-LAST:event_stock_buttonActionPerformed
+
+    private void expense_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expense_buttonActionPerformed
+        // TODO add your handling code here:
+         remove(middle1);
+        remove(middle2);
+        remove(middle3);
+        add(middle).setVisible(true);
+        validate();
+        repaint();
+    }//GEN-LAST:event_expense_buttonActionPerformed
+
+    private void service_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_service_buttonActionPerformed
+        // TODO add your handling code here:
+        
+        remove(middle);
+        remove(middle1);
+        remove(middle2);
+        add(middle3).setVisible(true);
+        validate();
+        repaint();
+    }//GEN-LAST:event_service_buttonActionPerformed
+
+    private void profitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profitActionPerformed
+        // TODO add your handling code here:
+        remove(middle);
+        remove(middle2);
+        remove(middle3);
+        add(middle1).setVisible(true);
+        validate();
+        repaint();
+    }//GEN-LAST:event_profitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,38 +263,56 @@ public class workshop extends javax.swing.JFrame implements ActionListener{
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logout;
     private javax.swing.JComboBox modulebox;
+    private javax.swing.JButton profit;
     private javax.swing.JButton service_button;
     private javax.swing.JButton stock_button;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+     /*  
     if(e.getActionCommand()=="stock management")
         {
+            System.out.println(e.getActionCommand().toString());
         remove(middle);
-        remove(middle2);
-        add(middle1);
-         validate();
+        remove(middle1);
+        remove(middle3);
+        
+        add(middle2).setVisible(true);
+        validate();
          repaint();
         }
     if(e.getActionCommand()=="expense")
         {
+            System.out.println(e.getActionCommand().toString());
         remove(middle1);
         remove(middle2);
-        add(middle);
+        remove(middle3);
+        add(middle).setVisible(true);
+        validate();
+        repaint();
+        }
+    if(e.getActionCommand()=="profit")
+        {
+            System.out.println(e.getActionCommand().toString());
+        remove(middle);
+        remove(middle2);
+        remove(middle3);
+        add(middle1).setVisible(true);
         validate();
         repaint();
         }
     if(e.getActionCommand()=="service")
         {
-        
-        remove(middle1);
+            System.out.println(e.getActionCommand().toString());
         remove(middle);
-        add(middle2);
+        remove(middle1);
+        remove(middle2);
+        add(middle3).setVisible(true);
         validate();
         repaint();
-        }
+        
+        }*/
     //System.out.print(e.getActionCommand());
      if(e.getActionCommand()=="logout")
         {

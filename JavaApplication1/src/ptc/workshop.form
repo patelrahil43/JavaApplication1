@@ -26,6 +26,9 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="d0" green="6d" red="4b" type="rgb"/>
+        </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
             <BevelBorder/>
@@ -47,11 +50,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="expense_button" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="profit" min="-2" pref="92" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="stock_button" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="service_button" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace pref="459" max="32767" attributes="0"/>
+                  <EmptySpace pref="349" max="32767" attributes="0"/>
                   <Component id="modulebox" min="-2" pref="154" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="logout" min="-2" max="-2" attributes="0"/>
@@ -61,14 +66,15 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="profit" max="32767" attributes="0"/>
                       <Component id="logout" alignment="0" pref="74" max="32767" attributes="0"/>
-                      <Component id="service_button" alignment="1" max="32767" attributes="0"/>
-                      <Component id="stock_button" alignment="0" max="32767" attributes="0"/>
                       <Component id="expense_button" alignment="0" max="32767" attributes="0"/>
                       <Component id="modulebox" alignment="0" max="32767" attributes="0"/>
+                      <Component id="stock_button" alignment="1" max="32767" attributes="0"/>
+                      <Component id="service_button" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -78,18 +84,27 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="expense_button">
           <Properties>
-            <Property name="text" type="java.lang.String" value="expense"/>
+            <Property name="text" type="java.lang.String" value="Expense"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="expense_buttonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="service_button">
           <Properties>
             <Property name="text" type="java.lang.String" value="service"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="service_buttonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="stock_button">
           <Properties>
-            <Property name="text" type="java.lang.String" value="stock management"/>
+            <Property name="text" type="java.lang.String" value="Stock Management"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stock_buttonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="logout">
           <Properties>
@@ -111,6 +126,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moduleboxActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="profit">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Profit"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="profitActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -57,7 +57,7 @@ public class db_op {
  {
     String colnames=gettablecols(tablename);
     String query=null;
-    if(tablename=="expense_workshop" || tablename=="service")
+    if(tablename=="expense_workshop" || tablename=="service" || tablename=="profit_workshop")
     {
                  query="select "+colnames+" from "+tablename+" WHERE date BETWEEN  \'"+from+"\' and \'"+to+"\'";
     }
@@ -113,6 +113,10 @@ public class db_op {
      if(tablenanme=="expense_workshop")
      {
      colnames="exp_id AS \'EXPENSE NO.\',exp_name AS \'EXPENSE NAME\',expense_type AS \'EXPENSE TYPE\',exp_amount AS \'EXPENSE AMOUNT\',date AS \'DATE\',description AS \'COMMENT\'";
+     }
+     if(tablenanme=="profit_workshop")
+     {
+     colnames="pro_id AS \'PROFIT NO.\',pro_name AS \'PROFIT NAME\',profit_type AS \'PROFIT TYPE\',pro_amount AS \'PROFIT AMOUNT\',date AS \'DATE\',description AS \'COMMENT\'";
      }
      if(tablenanme=="stock_workshop")
      {

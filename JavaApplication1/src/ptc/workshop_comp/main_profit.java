@@ -14,33 +14,36 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.plaf.ComponentUI;
 import net.proteanit.sql.DbUtils;
 import org.jdesktop.swingx.JXMonthView;
 import org.jdesktop.swingx.plaf.DatePickerUI;
 import ptc.workshop;
-import ptc.workshop_comp.add_new.stock_manage;
+import ptc.workshop_comp.add_new.profit;
 
 
 /**
  *
  * @author Rahil
  */
-public class stock_management extends javax.swing.JPanel {
+public class main_profit extends javax.swing.JPanel {
 
     /**
      * Creates new form main_expense
      */
-    stock_manage  addnew_stock_dailog;
+    profit  addnew_exp_dailog;
     ResultSet getdata;
     db_op op;
-    boolean searchvalid=true;
-    public stock_management() throws ClassNotFoundException, SQLException {
+    public main_profit() throws ClassNotFoundException, SQLException {
         initComponents();
         setVisible(true);
         /* set format of datepciker text box */
-       
+        from_date.setFormats("dd-M-yyyy");
+        to_date.setFormats("dd-M-yyyy");
         refreshdata();
+     
     }
 
     /**
@@ -60,12 +63,15 @@ public class stock_management extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         record_table = new javax.swing.JTable();
         search_panel1 = new javax.swing.JPanel();
+        viewby_label = new javax.swing.JLabel();
+        from_date = new org.jdesktop.swingx.JXDatePicker();
+        to_label = new javax.swing.JLabel();
+        to_date = new org.jdesktop.swingx.JXDatePicker();
         search_button = new javax.swing.JButton();
         excel = new javax.swing.JLabel();
         pdf = new javax.swing.JLabel();
         add_new_button = new javax.swing.JButton();
-        search_txt = new javax.swing.JTextField();
-        refresh_button = new javax.swing.JButton();
+        refresh = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         summary = new javax.swing.JPanel();
         no_exp_label = new javax.swing.JLabel();
@@ -85,30 +91,54 @@ public class stock_management extends javax.swing.JPanel {
         record_table.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         record_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "part no", "Part Name", "Qty", "amount", "total amount", "Edit", "Delete"
+                "Index", "Name", "Amount", "Date", "Description", "Expense-Type", "Edit", "Delete"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        record_table.setToolTipText("total stock detail");
+        record_table.setToolTipText("total expenses detail");
+        record_table.setCellSelectionEnabled(true);
+        record_table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         record_table.setEnabled(false);
+        record_table.setFocusable(false);
+        record_table.setGridColor(new java.awt.Color(45, 56, 97));
+        record_table.setRequestFocusEnabled(false);
         record_table.setRowHeight(25);
-        record_table.setRowSelectionAllowed(false);
+        record_table.setRowSorter(null);
         record_table.setVerifyInputWhenFocusTarget(false);
         jScrollPane1.setViewportView(record_table);
         record_table.getColumnModel().getColumn(0).setPreferredWidth(30);
+
+        viewby_label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        viewby_label.setText("from:");
+
+        to_label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        to_label.setText("to:");
 
         search_button.setText("search");
         search_button.addActionListener(new java.awt.event.ActionListener() {
@@ -128,13 +158,11 @@ public class stock_management extends javax.swing.JPanel {
             }
         });
 
-        search_txt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        refresh_button.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        refresh_button.setText("Refresh");
-        refresh_button.addActionListener(new java.awt.event.ActionListener() {
+        refresh.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        refresh.setText("Refresh");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refresh_buttonActionPerformed(evt);
+                refreshActionPerformed(evt);
             }
         });
 
@@ -144,14 +172,20 @@ public class stock_management extends javax.swing.JPanel {
             search_panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(search_panel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(search_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addComponent(viewby_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(from_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(to_label, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(to_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(23, 23, 23)
                 .addComponent(add_new_button, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(refresh_button, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
                 .addComponent(excel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pdf)
@@ -163,13 +197,16 @@ public class stock_management extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(search_panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(excel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(to_label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewby_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(from_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(to_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(search_button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(add_new_button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(search_txt)
                     .addGroup(search_panel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(pdf, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(refresh_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -179,18 +216,18 @@ public class stock_management extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 746, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 181, Short.MAX_VALUE)
+            .addGap(0, 228, Short.MAX_VALUE)
         );
 
         no_exp_label.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         no_exp_label.setText("Total Item:");
 
         total_exp_label.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        total_exp_label.setText("Total-Expense:");
+        total_exp_label.setText("Total Profit:");
 
         no_expense_item.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
 
@@ -234,9 +271,9 @@ public class stock_management extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(search_panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(summary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -246,77 +283,82 @@ public class stock_management extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(search_panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(summary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void add_new_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_new_buttonActionPerformed
-        // TODO add your handling code here:
-        addnew_stock_dailog=new stock_manage(new javax.swing.JFrame(), true);
-        addnew_stock_dailog.setAlwaysOnTop(true);
-        addnew_stock_dailog.setVisible(true);
-        try {
-            refreshdata();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_add_new_buttonActionPerformed
-
     private void search_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_buttonActionPerformed
         // TODO add your handling code here:
-        searchvalid=true;
-        if(search_txt.getText().trim().length()==0)
+        try
         {
-            JOptionPane.showMessageDialog(null, "please enter valid text!!!","error",JOptionPane.ERROR_MESSAGE);
-            searchvalid=false;
-            try {
-                refreshdata();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if(searchvalid)
-        {
-            String search_text=search_txt.getText();
-
+            SimpleDateFormat mdyFormat = new SimpleDateFormat("yyyy-M-dd");
+            String from_dat = mdyFormat.format(from_date.getDate());
+            String to_dat = mdyFormat.format(to_date.getDate());
             try {
                 op = new db_op();
-                getdata=op.getdatasearch("stock_workshop",search_text);
+                getdata=op.getdatasearch("profit_workshop",from_dat,to_dat);
                 record_table.setModel(DbUtils.resultSetToTableModel(getdata));
+                summary();
                 if(!tablecheck()){refreshdata();}
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         }
-
+        catch(NullPointerException ex)
+        {
+             JOptionPane.showMessageDialog(null, "please enter valid to and from date!!!","error",JOptionPane.ERROR_MESSAGE);
+            try {
+                
+            } catch (Exception ex1) {
+                JOptionPane.showMessageDialog(null, "please enter valid text!!!"+ex1.getMessage(),"error",JOptionPane.ERROR_MESSAGE);
+                 try {
+                     refreshdata();
+                 } catch (ClassNotFoundException ex2) {
+                     Logger.getLogger(main_profit.class.getName()).log(Level.SEVERE, null, ex2);
+                 } catch (SQLException ex2) {
+                     Logger.getLogger(main_profit.class.getName()).log(Level.SEVERE, null, ex2);
+                 }
+            } 
+        }
     }//GEN-LAST:event_search_buttonActionPerformed
 
-    private void refresh_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_buttonActionPerformed
+    private void add_new_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_new_buttonActionPerformed
+        // TODO add your handling code here:
+        addnew_exp_dailog=new profit(new javax.swing.JFrame(),true);
+        addnew_exp_dailog.setAlwaysOnTop(true);
+        addnew_exp_dailog.setVisible(true);
+        try {
+            refreshdata();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(main_profit.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(main_profit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_add_new_buttonActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         try {
             // TODO add your handling code here:
             refreshdata();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main_profit.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main_profit.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_refresh_buttonActionPerformed
+    }//GEN-LAST:event_refreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_new_button;
     private javax.swing.JLabel excel;
+    private org.jdesktop.swingx.JXDatePicker from_date;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -326,35 +368,31 @@ public class stock_management extends javax.swing.JPanel {
     private javax.swing.JLabel no_expense_item;
     private javax.swing.JLabel pdf;
     private javax.swing.JTable record_table;
-    private javax.swing.JButton refresh_button;
+    private javax.swing.JButton refresh;
     private javax.swing.JButton search_button;
     private javax.swing.JPanel search_panel1;
-    private javax.swing.JTextField search_txt;
     private javax.swing.JPanel summary;
     private com.qt.datapicker.TestDayPicker testDayPicker1;
     private com.qt.datapicker.TestDayPicker testDayPicker2;
+    private org.jdesktop.swingx.JXDatePicker to_date;
+    private javax.swing.JLabel to_label;
     private javax.swing.JLabel total_exp;
     private javax.swing.JLabel total_exp_label;
+    private javax.swing.JLabel viewby_label;
     // End of variables declaration//GEN-END:variables
 
-public static void main(String args[])
+public static void main(String args[]) throws ClassNotFoundException, SQLException
 {
-        try {
-            new stock_management();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
-        }
+new main_profit();
 }
 public void refreshdata() throws ClassNotFoundException, SQLException
 {
         db_op op=new db_op();
-        getdata=op.getData("stock_workshop");
+        getdata=op.getData("profit_workshop");
         record_table.setModel(DbUtils.resultSetToTableModel(getdata));
-       //tablecheck();
+        summary();
 }
-        public boolean tablecheck() 
+ public boolean tablecheck() 
     {
     if(record_table.getRowCount()<1){
            JOptionPane.showMessageDialog(null,"no record found!!!");
@@ -362,5 +400,17 @@ public void refreshdata() throws ClassNotFoundException, SQLException
         }
     return true;
     }
-        
+ public void summary()
+ {
+     int total_item=record_table.getRowCount();
+     int total=0;
+     for (int i = 0;  i < total_item; i++) 
+        { 
+            total=total+Integer.parseInt(record_table.getValueAt(i,3).toString()); 
+            System.out.print(record_table.getValueAt(i,3));
+        }
+     no_expense_item.setText(Integer.toString(total_item));
+     total_exp.setText(Integer.toString(total));
+     
  }
+}

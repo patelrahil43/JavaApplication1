@@ -6,6 +6,7 @@ package ptc.workshop_comp;
 
 import ptc.workshop_comp.add_new.expense;
 import com.xzq.osc.field.DateValuePicker;
+import java.awt.print.PrinterException;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,9 +72,12 @@ public class main_expense extends javax.swing.JPanel {
         pdf = new javax.swing.JLabel();
         add_new_button = new javax.swing.JButton();
         refresh = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
+        summary = new javax.swing.JPanel();
+        no_exp_label = new javax.swing.JLabel();
+        total_exp_label = new javax.swing.JLabel();
+        no_expense_item = new javax.swing.JLabel();
+        total_exp = new javax.swing.JLabel();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -146,6 +150,11 @@ public class main_expense extends javax.swing.JPanel {
         excel.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rahil\\Documents\\NetBeansProjects\\JavaApplication1\\src\\logo\\excel.png")); // NOI18N
 
         pdf.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rahil\\Documents\\NetBeansProjects\\JavaApplication1\\src\\logo\\pdf-file-32.png")); // NOI18N
+        pdf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pdfMouseClicked(evt);
+            }
+        });
 
         add_new_button.setText("add new");
         add_new_button.addActionListener(new java.awt.event.ActionListener() {
@@ -206,10 +215,6 @@ public class main_expense extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
         jPanel1.setBackground(new java.awt.Color(242, 249, 248));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -220,7 +225,46 @@ public class main_expense extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 228, Short.MAX_VALUE)
+        );
+
+        no_exp_label.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        no_exp_label.setText("Total Item:");
+
+        total_exp_label.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        total_exp_label.setText("Total-Expense:");
+
+        no_expense_item.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+
+        total_exp.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+
+        javax.swing.GroupLayout summaryLayout = new javax.swing.GroupLayout(summary);
+        summary.setLayout(summaryLayout);
+        summaryLayout.setHorizontalGroup(
+            summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(summaryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(total_exp_label, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(no_exp_label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(no_expense_item, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                    .addComponent(total_exp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        summaryLayout.setVerticalGroup(
+            summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(summaryLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(no_exp_label, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(no_expense_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(total_exp_label, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(total_exp, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -235,7 +279,7 @@ public class main_expense extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(summary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -244,11 +288,11 @@ public class main_expense extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(search_panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(summary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -264,6 +308,7 @@ public class main_expense extends javax.swing.JPanel {
                 op = new db_op();
                 getdata=op.getdatasearch("expense_workshop",from_dat,to_dat);
                 record_table.setModel(DbUtils.resultSetToTableModel(getdata));
+                summary();
                 if(!tablecheck()){refreshdata();}
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(stock_management.class.getName()).log(Level.SEVERE, null, ex);
@@ -315,6 +360,15 @@ public class main_expense extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_refreshActionPerformed
 
+    private void pdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfMouseClicked
+        try {
+            record_table.print();
+           
+        } catch (PrinterException ex) {
+            Logger.getLogger(main_expense.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_pdfMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_new_button;
     private javax.swing.JLabel excel;
@@ -324,17 +378,20 @@ public class main_expense extends javax.swing.JPanel {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel no_exp_label;
+    private javax.swing.JLabel no_expense_item;
     private javax.swing.JLabel pdf;
     private javax.swing.JTable record_table;
     private javax.swing.JButton refresh;
     private javax.swing.JButton search_button;
     private javax.swing.JPanel search_panel1;
+    private javax.swing.JPanel summary;
     private com.qt.datapicker.TestDayPicker testDayPicker1;
     private com.qt.datapicker.TestDayPicker testDayPicker2;
     private org.jdesktop.swingx.JXDatePicker to_date;
     private javax.swing.JLabel to_label;
+    private javax.swing.JLabel total_exp;
+    private javax.swing.JLabel total_exp_label;
     private javax.swing.JLabel viewby_label;
     // End of variables declaration//GEN-END:variables
 
@@ -347,6 +404,7 @@ public void refreshdata() throws ClassNotFoundException, SQLException
         db_op op=new db_op();
         getdata=op.getData("expense_workshop");
         record_table.setModel(DbUtils.resultSetToTableModel(getdata));
+        summary();
 }
  public boolean tablecheck() 
     {
@@ -356,4 +414,17 @@ public void refreshdata() throws ClassNotFoundException, SQLException
         }
     return true;
     }
+ public void summary()
+ {
+     int total_item=record_table.getRowCount();
+     int total=0;
+     for (int i = 0;  i < total_item; i++) 
+        { 
+            total=total+Integer.parseInt(record_table.getValueAt(i,3).toString()); 
+            System.out.print(record_table.getValueAt(i,3));
+        }
+     no_expense_item.setText(Integer.toString(total_item));
+     total_exp.setText(Integer.toString(total));
+     
+ }
 }

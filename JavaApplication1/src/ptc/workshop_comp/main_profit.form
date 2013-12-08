@@ -50,9 +50,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="search_panel1" alignment="0" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jPanel1" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="summary" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -66,9 +66,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="search_panel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="342" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="295" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel1" max="32767" attributes="0"/>
                   <Component id="summary" max="32767" attributes="0"/>
               </Group>
@@ -92,17 +92,19 @@
               <Font name="Times New Roman" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="4">
-                <Column editable="true" title="part no" type="java.lang.Integer"/>
-                <Column editable="true" title="Part Name" type="java.lang.String"/>
-                <Column editable="true" title="Qty" type="java.lang.Integer"/>
-                <Column editable="true" title="amount" type="java.lang.String"/>
-                <Column editable="true" title="total amount" type="java.lang.String"/>
+              <Table columnCount="8" rowCount="17">
+                <Column editable="true" title="Index" type="java.lang.Integer"/>
+                <Column editable="true" title="Name" type="java.lang.String"/>
+                <Column editable="true" title="Amount" type="java.lang.Integer"/>
+                <Column editable="true" title="Date" type="java.lang.String"/>
+                <Column editable="true" title="Description" type="java.lang.String"/>
+                <Column editable="true" title="Expense-Type" type="java.lang.String"/>
                 <Column editable="true" title="Edit" type="java.lang.Object"/>
                 <Column editable="true" title="Delete" type="java.lang.Object"/>
               </Table>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="total stock detail"/>
+            <Property name="toolTipText" type="java.lang.String" value="total expenses detail"/>
+            <Property name="cellSelectionEnabled" type="boolean" value="true"/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
@@ -140,11 +142,26 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
               </TableColumnModel>
             </Property>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Default Cursor"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="61" green="38" red="2d" type="rgb"/>
+            </Property>
+            <Property name="requestFocusEnabled" type="boolean" value="false"/>
             <Property name="rowHeight" type="int" value="25"/>
-            <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+            <Property name="rowSorter" type="javax.swing.RowSorter" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="null"/>
+            </Property>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -159,15 +176,21 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="search_txt" min="-2" pref="232" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="viewby_label" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="from_date" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="to_label" min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="to_date" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="search_button" min="-2" pref="92" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="add_new_button" min="-2" pref="98" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="refresh_button" min="-2" pref="102" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="refresh" min="-2" pref="92" max="-2" attributes="0"/>
+                  <EmptySpace pref="270" max="32767" attributes="0"/>
                   <Component id="excel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pdf" min="-2" max="-2" attributes="0"/>
@@ -181,14 +204,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="excel" alignment="1" max="32767" attributes="0"/>
+                      <Component id="to_label" alignment="0" max="32767" attributes="0"/>
+                      <Component id="viewby_label" alignment="1" max="32767" attributes="0"/>
+                      <Component id="from_date" alignment="0" max="32767" attributes="0"/>
+                      <Component id="to_date" alignment="0" max="32767" attributes="0"/>
                       <Component id="search_button" alignment="0" max="32767" attributes="0"/>
                       <Component id="add_new_button" alignment="0" max="32767" attributes="0"/>
-                      <Component id="search_txt" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="pdf" min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="refresh_button" max="32767" attributes="0"/>
+                      <Component id="refresh" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -196,6 +222,26 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JLabel" name="viewby_label">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="from:"/>
+          </Properties>
+        </Component>
+        <Component class="org.jdesktop.swingx.JXDatePicker" name="from_date">
+        </Component>
+        <Component class="javax.swing.JLabel" name="to_label">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="to:"/>
+          </Properties>
+        </Component>
+        <Component class="org.jdesktop.swingx.JXDatePicker" name="to_date">
+        </Component>
         <Component class="javax.swing.JButton" name="search_button">
           <Properties>
             <Property name="text" type="java.lang.String" value="search"/>
@@ -226,14 +272,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="add_new_buttonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="search_txt">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="refresh_button">
+        <Component class="javax.swing.JButton" name="refresh">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -241,7 +280,7 @@
             <Property name="text" type="java.lang.String" value="Refresh"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refresh_buttonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -256,12 +295,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="746" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="181" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="228" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -274,12 +313,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="total_exp_label" alignment="1" pref="162" max="32767" attributes="0"/>
+                      <Component id="total_exp_label" pref="162" max="32767" attributes="0"/>
                       <Component id="no_exp_label" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="no_expense_item" alignment="0" pref="115" max="32767" attributes="0"/>
+                      <Component id="no_expense_item" pref="115" max="32767" attributes="0"/>
                       <Component id="total_exp" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -291,8 +330,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="no_exp_label" alignment="0" pref="56" max="32767" attributes="0"/>
-                      <Component id="no_expense_item" alignment="0" max="32767" attributes="0"/>
+                      <Component id="no_exp_label" pref="56" max="32767" attributes="0"/>
+                      <Component id="no_expense_item" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -318,7 +357,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Total-Expense:"/>
+            <Property name="text" type="java.lang.String" value="Total Profit:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="no_expense_item">

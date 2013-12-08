@@ -48,11 +48,12 @@ public class Login extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         header_image = new javax.swing.JLabel();
         error = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ptc-login");
         setAlwaysOnTop(true);
-        setBackground(java.awt.Color.blue);
+        setBackground(new java.awt.Color(7, 7, 99));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -123,6 +124,11 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(error);
         error.setBounds(380, 400, 340, 40);
         error.getAccessibleContext().setAccessibleName("error_txt");
+
+        jPanel1.setBackground(new java.awt.Color(75, 109, 208));
+        jPanel1.setForeground(new java.awt.Color(142, 142, 152));
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 800, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -224,6 +230,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel header_image;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlabel_username;
     private javax.swing.JLabel label_password;
     private javax.swing.JPasswordField password;
